@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>STREKS</title>
+<link rel="manifest" href="manifest.json"><meta name="theme-color" content="#ff3d7f"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-192.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="STREKS">
+<style>:root{--bg:#f2f3f7;--card:#fff;--tx:#1c1e21;--mu:#65676b;--pr:#6c47ff;--bd:#e4e6eb;--me:#ece8ff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root{--bg:#18191a;--card:#242526;--tx:#e4e6eb;--mu:#b0b3b8;--bd:#3a3b3c;--pr:#9a85ff;--me:#3b3366;color-scheme:dark}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-text-size-adjust:100%}
+#app{display:flex;flex-direction:column;height:100%;height:100dvh;max-width:680px;margin:0 auto}
+header{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 14px;background:var(--card);border-bottom:1px solid var(--bd)}
+.logo{font-weight:800;font-size:22px;color:var(--pr)}
+nav{display:flex;order:3;background:var(--card);border-top:1px solid var(--bd)}
+nav button{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:58px;padding:6px 2px 8px;border:0;background:none;color:var(--mu);font:inherit;font-size:12px;cursor:pointer}
+nav .ic{font-size:23px;line-height:1}
+nav button.on{color:var(--pr);font-weight:700}
+main{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:12px;order:2}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px;margin-bottom:12px}
+.row{display:flex;align-items:center;gap:10px}.grow{flex:1;min-width:0;overflow-wrap:anywhere}
+.acts{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.av{border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex:none}
+.mu{color:var(--mu);font-size:14px}
+input,textarea{width:100%;min-height:46px;padding:11px 12px;border:1px solid var(--bd);border-radius:12px;background:var(--bg);color:var(--tx);font:inherit;font-size:16px}
+textarea{resize:vertical;min-height:80px}
+.btn{min-height:44px;padding:10px 18px;border:0;border-radius:22px;background:var(--pr);color:#fff;font:inherit;font-weight:600;cursor:pointer}
+.btn.g{background:var(--bd);color:var(--tx)}.btn.sm{min-height:38px;padding:6px 14px;font-size:14px}
+.msgs{display:flex;flex-direction:column;gap:6px;min-height:240px}
+.m{max-width:80%;padding:9px 13px;border-radius:18px;background:var(--bd);overflow-wrap:anywhere;white-space:pre-wrap}
+.m.me{align-self:flex-end;background:var(--me)}
+.cbar{position:sticky;bottom:0;background:var(--bg);padding:8px 0}
+.chead{position:sticky;top:-12px;background:var(--bg);padding:8px 0;z-index:2}
+.sw{display:inline-block;width:36px;height:36px;border-radius:50%;margin:4px;cursor:pointer;border:3px solid transparent}
+.sw.on{border-color:var(--tx)}
+.auth{max-width:440px;margin:24px auto}h2{margin:6px 0 10px}.err{color:#d93025;font-size:14px;margin:8px 0}
+.pimg{width:100%;max-height:560px;object-fit:cover;border-radius:12px;display:block;margin:8px 0}
+@media(max-width:480px){main{padding:8px}.card{padding:12px;border-radius:12px;margin-bottom:8px}.card.row{flex-wrap:wrap}.card.row .acts{width:100%}.card.row .acts .btn{flex:1}.auth{margin:8px auto}.m{max-width:88%}}
+@media(min-width:900px){#app.in{max-width:980px;display:grid;grid-template-columns:240px minmax(0,1fr);grid-template-rows:auto 1fr;gap:0 16px}
+#app.in header{grid-column:1/3}
+#app.in nav{order:0;grid-column:1;grid-row:2;flex-direction:column;border:0;background:none;padding:14px 0;gap:4px;align-self:start}
+#app.in nav button{flex-direction:row;justify-content:flex-start;gap:14px;min-height:50px;padding:10px 16px;border-radius:14px;font-size:17px}
+#app.in nav button.on{background:var(--card);border:1px solid var(--bd)}
+#app.in main{grid-column:2;grid-row:2;max-width:680px;width:100%}}
+
+/* ---- STREKS identity: sunset gradient, Instagram-style layout ---- */
+:root{--pr:#ff3d7f;--grad:linear-gradient(135deg,#ff9a3c,#ff3d7f 55%,#7b3cff);--bg:#fafafa;--bd:#ececf1;--me:#ffe4ef}
+@media (prefers-color-scheme:dark){:root{--bg:#0e0e12;--card:#17171d;--bd:#2a2a33;--pr:#ff5c95;--me:#4a1f38}}
+.logo{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;font-size:27px;letter-spacing:-.5px}
+.btn{background:var(--grad)}.btn.g{background:var(--bd);color:var(--tx)}
+header{position:sticky;top:0;z-index:5}
+[data-u]{cursor:pointer}
+.post{padding:0;overflow:hidden}
+.post>*:not(img){margin-left:12px;margin-right:12px}
+.post>.row:first-child{margin-top:12px}.post>:last-child{margin-bottom:12px}
+.post>img{margin:8px 0!important;border-radius:0}
+.post>.row:first-child .av{box-shadow:0 0 0 2px var(--card),0 0 0 4px #ff3d7f}
+.ring{padding:3px;border-radius:50%;background:var(--grad);display:flex}.ring .av{border:3px solid var(--card)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-bottom:12px}
+.grid img{width:100%;aspect-ratio:1;object-fit:cover;display:block}
+nav button.on .ic{filter:drop-shadow(0 0 6px #ff3d7f88)}
+nav button.on{color:var(--pr)}
+
+.tile{aspect-ratio:1;background:var(--grad);color:#fff;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;font-size:13px;font-weight:600;overflow:hidden;cursor:pointer;overflow-wrap:anywhere}
+.grid img{cursor:pointer}
+/* menu on top for laptops too */
+@media(min-width:900px){#app.in{display:flex;flex-direction:column;max-width:720px}
+#app.in nav{order:1;flex-direction:row;justify-content:center;gap:6px;padding:4px 8px;border:0;border-bottom:1px solid var(--bd);background:var(--card)}
+#app.in nav button{flex:1;flex-direction:row;justify-content:center;gap:8px;min-height:48px;padding:8px 10px;border-radius:12px;font-size:15px}
+#app.in nav button.on{background:var(--bg);border:0}
+#app.in main{max-width:none;width:100%}}
+
+.pimg,.post>img{max-height:720px}
+.conv{padding:12px 4px;border-bottom:1px solid var(--bd);cursor:pointer;gap:12px}
+.sbar{display:flex;gap:12px;overflow-x:auto;padding:4px 2px 12px}
+.sitem{display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;flex:none;width:70px}
+.sitem .mu{max-width:70px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ring.none{background:var(--bd)}
+.addb{width:66px;height:66px;align-items:center;justify-content:center;font-size:28px;color:var(--mu)}
+.plus{position:absolute;right:-2px;bottom:-2px;background:var(--grad);color:#fff;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;border:2px solid var(--card)}
+.sv{position:fixed;inset:0;background:#000;z-index:100;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.sv img{flex:1;min-height:0;width:100%;object-fit:contain}
+.bars{display:flex;gap:4px;padding:10px 10px 6px;position:relative;z-index:2}
+.bars i{flex:1;height:3px;background:#ffffff55;border-radius:2px;position:relative;overflow:hidden}
+.bars i.done{background:#fff}
+.bars i.cur:after{content:'';position:absolute;inset:0;background:#fff;transform-origin:left;animation:fill 5s linear forwards}
+@keyframes fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.svh{padding:0 12px 8px;color:#fff;gap:8px;position:relative;z-index:2}
+.zl,.zr{position:absolute;top:90px;bottom:0;width:40%}.zl{left:0}.zr{right:0}
+#app.out{max-width:none;background:linear-gradient(135deg,#ff9a3c,#ff3d7f 50%,#7b3cff)}
+#app.out main{display:flex;padding:20px}.out main>*{margin:auto}
+.hero{width:100%;max-width:400px;text-align:center;color:#fff}
+.hero .big{font-size:50px;font-weight:900;letter-spacing:-1px;line-height:1}
+.hero>p{margin:6px 0 22px;opacity:.92}
+.glass{background:var(--card);color:var(--tx);border-radius:24px;padding:24px;box-shadow:0 20px 60px #0004;text-align:left}
+.fld{position:relative;margin-bottom:12px}
+.fld .i{position:absolute;left:14px;top:50%;transform:translateY(-50%);opacity:.7}
+.fld input{padding-left:44px;padding-right:44px;min-height:50px}
+.eye{position:absolute;right:8px;top:50%;transform:translateY(-50%);border:0;background:none;cursor:pointer;font-size:18px;padding:6px}
+.divider{display:flex;align-items:center;gap:10px;color:var(--mu);margin:14px 0;font-size:13px}
+.divider:before,.divider:after{content:'';flex:1;height:1px;background:var(--bd)}
+.btn.full{width:100%;min-height:50px;font-size:16px}
+
+.sv img,.sv video{flex:1;min-height:0;width:100%;object-fit:contain}
+.bars i.vid:after{animation:none;transform:scaleX(var(--p,0))}
+.sv.paused .bars i.cur:not(.vid):after{animation-play-state:paused}
+.spanel{position:relative;z-index:3;background:#000b;padding:8px 12px}
+.scs{color:#fff;font-size:13px;max-height:90px;overflow:auto;margin-bottom:6px}.scs .x{cursor:pointer;opacity:.7}
+.sin{gap:6px}.sin input{background:#222;color:#fff;border-color:#444}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:#000c;color:#fff;padding:10px 18px;border-radius:20px;z-index:200}
+video.pimg{background:#000}
+.grid video{width:100%;aspect-ratio:1;object-fit:cover;display:block;cursor:pointer}
+
+.bell{position:relative;border:0;background:none;font-size:22px;cursor:pointer;padding:4px 8px;color:var(--tx)}
+.bdg{position:absolute;top:-2px;right:0;background:var(--grad);color:#fff;font-size:11px;min-width:18px;height:18px;border-radius:9px;display:flex;align-items:center;justify-content:center;padding:0 4px}
+.unread{background:var(--me);border-radius:12px;padding-left:10px;padding-right:10px}
+.seen{align-self:flex-end;font-size:12px;margin-top:-2px}
+.cnt{display:inline-flex;background:var(--grad);color:#fff;font-size:12px;min-width:20px;height:20px;border-radius:10px;align-items:center;justify-content:center;padding:0 6px;font-weight:700;margin-top:4px}
+.seg{display:flex;gap:6px;margin-bottom:12px}.seg button{flex:1;min-height:42px;border:1px solid var(--bd);border-radius:12px;background:var(--card);color:var(--mu);font:inherit;font-weight:600;cursor:pointer}.seg button.on{color:var(--pr);border-color:var(--pr)}
+.mw{display:flex;flex-direction:column;max-width:80%;align-self:flex-start}.mw.me{align-self:flex-end;align-items:flex-end}.mw .m{max-width:100%;cursor:pointer}
+.picker{display:flex;gap:2px;background:var(--card);border:1px solid var(--bd);border-radius:22px;padding:4px 6px;margin-bottom:4px;box-shadow:0 4px 14px #0002}
+.picker button{border:0;background:none;font-size:22px;cursor:pointer;padding:2px 4px}
+.chips{display:flex;gap:4px;margin-top:-6px;flex-wrap:wrap;position:relative;z-index:1}
+.chip{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:0 7px;font-size:13px;cursor:pointer}
+.chip.mine{border-color:var(--pr);background:var(--me)}
+</style></head><body><div id="app"><main id="root">Loading…</main></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script>
+const sb=supabase.createClient('https://iewyhnhzviknqazjagnv.supabase.co','sb_publishable_ZbBKge-Gr7FQDy0FemNZGw_X97ZQksB');
+const COLORS=['#6c47ff','#e8356d','#0f9d58','#f29900','#1a73e8','#a142f4','#00897b','#d84315'];
+const h=(t,a={},...c)=>{const e=document.createElement(t);for(const k in a){if(k.startsWith('on'))e.addEventListener(k.slice(2),a[k]);else if(k==='class')e.className=a[k];else e.setAttribute(k,a[k])}c.flat(Infinity).forEach(x=>{if(x===false||x==null)return;e.append(x.nodeType?x:document.createTextNode(x))});return e};
+let reacts=[],pickId=null,ptab='posts',savedList=[],savedIds=new Set(),showSet=false,recovery=false,editPost=null,suggest=[],notifs=[],storyLikes=[],storyComments=[],allMsgs=[],stories=[],showPw=false,stTimer;
+let uid=null,me=null,profs={},fr=[],posts=[],msgs=[],loaded=false,tab='feed',chatWith=null,openC=null,editing=false,mode='in',err='',note='';
+let draft={sc:COLORS[0]};
+const q=id=>document.getElementById(id);
+const inc=k=>e=>{draft[k]=e.target.value};
+const av=(u,s=40)=>{const e=av0(u,s);if(u.id)e.dataset.u=u.id;return e};
+const av0=(u,s=40)=>u.pic_url?h('img',{class:'av',src:u.pic_url,style:`width:${s}px;height:${s}px;object-fit:cover`}):h('div',{class:'av',style:`width:${s}px;height:${s}px;background:${u.color||'#888'};font-size:${s*.45}px`},(u.name||'?')[0].toUpperCase());
+const ago=t=>{const d=new Date(t),n=new Date();return d.toDateString()===n.toDateString()?d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}):d.toLocaleDateString([],{day:'numeric',month:'short'})};
+const unreadMsgs=()=>allMsgs.filter(m=>m.receiver===uid&&!m.read_at).length;
+const when=t=>new Date(t).toLocaleString([],{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
+const relOf=o=>fr.find(r=>(r.requester===uid&&r.addressee===o)||(r.requester===o&&r.addressee===uid));
+const friends=()=>Object.keys(profs).filter(o=>o!==uid&&relOf(o)?.status==='accepted');
+const incoming=()=>fr.filter(r=>r.status==='pending'&&r.addressee===uid);
+const toBlob=(file,max,sq,ql)=>new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>{const i=new Image();i.onload=()=>{let sx=0,sy=0,sw=i.width,sh=i.height;if(sq){const m=Math.min(sw,sh);sx=(sw-m)/2;sy=(sh-m)/2;sw=sh=m}const k=Math.min(1,max/Math.max(sw,sh)),c=document.createElement('canvas');c.width=Math.round(sw*k);c.height=Math.round(sh*k);(g=>{g.imageSmoothingQuality='high';return g})(c.getContext('2d')).drawImage(i,sx,sy,sw,sh,0,0,c.width,c.height);c.toBlob(b=>b?res(b):rej(),'image/jpeg',ql||.9)};i.onerror=rej;i.src=r.result};r.onerror=rej;r.readAsDataURL(file)});
+const upload=async b=>{const v=b.type&&b.type.startsWith('video/'),ext=v?((b.type.split('/')[1]||'mp4').split(';')[0].replace('quicktime','mov')):'jpg',p=uid+'/'+Date.now()+'.'+ext;const{error}=await sb.storage.from('media').upload(p,b,{contentType:v?b.type:'image/jpeg'});if(error)throw error;return sb.storage.from('media').getPublicUrl(p).data.publicUrl};
+const toast=m=>{const d=h('div',{class:'toast'},m);document.body.append(d);return()=>d.remove()};
+const pickFile=(key,max,sq)=>async e=>{const f=e.target.files[0];if(!f)return;try{if(f.type.startsWith('video/')){if(f.size>5e7)return alert('Video is too large (max 50 MB)');draft[key]={blob:f,url:URL.createObjectURL(f),video:true};return render()}const b=await toBlob(f,max,sq,sq?.9:.92);draft[key]={blob:b,url:URL.createObjectURL(b)};render()}catch(x){err='Could not use that image';render()}};
+
+async function loadAll(){
+  const[a,b,c,d,e,f,g,nr,sg,sd]=await Promise.all([sb.from('profiles').select('*').limit(1000),sb.from('friendships').select('*'),
+    sb.from('posts').select('*,likes(user_id),comments(id,user_id,text,created_at)').order('created_at',{ascending:false}).limit(60),
+    sb.from('messages').select('*').order('created_at',{ascending:false}).limit(300),sb.from('stories').select('*').order('created_at',{ascending:true}),sb.from('story_likes').select('*'),sb.from('story_comments').select('*').order('created_at',{ascending:true}),sb.from('notifications').select('*').order('created_at',{ascending:false}).limit(50),sb.rpc('suggest_people'),sb.from('saved_posts').select('post_id,created_at,posts(*,likes(user_id),comments(id,user_id,text,created_at))').order('created_at',{ascending:false})]);
+  profs={};(a.data||[]).forEach(p=>profs[p.id]=p);me=profs[uid]||null;fr=b.data||[];posts=c.data||[];allMsgs=d.data||[];stories=e.data||[];storyLikes=f.data||[];storyComments=g.data||[];notifs=nr.data||[];suggest=sg.data||[];savedList=(sd.data||[]).map(r=>r.posts).filter(Boolean);savedIds=new Set((sd.data||[]).map(r=>r.post_id));loaded=true;
+}
+async function loadMsgs(){
+  if(!chatWith)return;
+  const{data}=await sb.from('messages').select('*').or(`and(sender.eq.${uid},receiver.eq.${chatWith}),and(sender.eq.${chatWith},receiver.eq.${uid})`).order('created_at').limit(200);
+  msgs=data||[];
+  {const ids=msgs.map(m=>m.id);if(ids.length){const r=await sb.from('message_reactions').select('*').in('message_id',ids);reacts=r.data||[]}else reacts=[]}
+  const un=msgs.filter(m=>m.receiver===uid&&!m.read_at);
+  if(un.length){const now=new Date().toISOString();un.forEach(m=>m.read_at=now);allMsgs.forEach(m=>{if(m.receiver===uid&&m.sender===chatWith&&!m.read_at)m.read_at=now});sb.from('messages').update({read_at:now}).eq('sender',chatWith).eq('receiver',uid).is('read_at',null).then(()=>{})}
+}
+const reload=async()=>{await loadAll();await loadMsgs();render()};
+let ch,tm;
+const refresh=()=>{clearTimeout(tm);tm=setTimeout(reload,250)};
+function subscribe(){if(ch)sb.removeChannel(ch);ch=sb.channel('live').on('postgres_changes',{event:'*',schema:'public'},refresh).subscribe()}
+const act=async p=>{const{error}=await p;if(error)alert(error.message);await reload()};
+
+async function onSess(s){
+  if(!s){uid=null;me=null;loaded=false;if(ch){sb.removeChannel(ch);ch=null}render();return}
+  if(s.user.id===uid)return;
+  uid=s.user.id;await loadAll();openHash();subscribe();render();
+}
+
+function render(){
+  {const t=uid?notifs.filter(n=>!n.read).length+unreadMsgs():0;document.title=(t?'('+t+') ':'')+'STREKS'}
+  const root=q('root');const f=document.activeElement,fid=f&&f.id,pos=f&&f.selectionStart,sc=root.scrollTop;
+  root.replaceChildren();
+  const app=q('app');app.className='';app.replaceChildren(root);
+  if(recovery&&uid){app.className='out';root.append(resetView())}
+  else if(!uid){app.className='out';root.append(authView())}
+  else if(!loaded)root.append('Loading…');
+  else if(!me){app.className='out';root.append(setupView())}
+  else{
+    app.className='in';app.replaceChildren(
+      h('header',{},h('span',{class:'logo'},'STREKS'),h('span',{class:'row'},h('button',{class:'bell',onclick:()=>{tab='notif';viewId=null;focus=null;chatWith=null;render()}},'\ud83d\udd14',notifs.some(n=>!n.read)&&h('b',{class:'bdg'},Math.min(notifs.filter(n=>!n.read).length,9)+(notifs.filter(n=>!n.read).length>9?'+':''))),av(me,30),h('button',{class:'btn g sm',onclick:()=>sb.auth.signOut()},'Log out'))),
+      h('nav',{},...[['feed','\ud83c\udfe0','Home'],['explore','\ud83d\udd0d','Explore'],['people','\ud83d\udc65','Friends'],['chat','\ud83d\udcac','Chat'],['me','\ud83d\udc64','Profile']].map(([k,i,l])=>h('button',{class:tab===k?'on':'',onclick:()=>{tab=k;viewId=null;focus=null;ptab='posts';if(k!=='chat'){chatWith=null;msgs=[]}render()}},h('span',{class:'ic'},i),h('span',{},l+(k==='people'&&incoming().length?' ('+incoming().length+')':k==='chat'&&unreadMsgs()?' ('+unreadMsgs()+')':''))))),root);
+    root.append(tab==='notif'?notifView():tab==='explore'?exploreView():tab==='feed'?feedView():tab==='people'?peopleView():tab==='chat'?chatView():profileView());
+  }
+  root.scrollTop=sc;
+  if(fid&&q(fid)){const n=q(fid);n.focus();try{n.setSelectionRange(pos,pos)}catch(e){}}
+  if(tab==='chat'&&chatWith)root.scrollTop=root.scrollHeight;
+}
+
+function authView(){
+  if(mode==='forgot')return forgotView();
+  const isIn=mode==='in';
+  const go=async()=>{err='';note='';const c={email:(draft.em||'').trim(),password:draft.pw||''};
+    const r=isIn?await sb.auth.signInWithPassword(c):await sb.auth.signUp(c);
+    if(r.error)err=r.error.message;else if(!isIn&&!r.data.session)note='Check your email and confirm your account, then log in.';
+    render()};
+  return h('div',{class:'hero'},h('div',{class:'big'},'STREKS'),h('p',{},isIn?'Welcome back. Your friends are waiting.':'Join STREKS and share moments with friends.'),
+    h('div',{class:'glass'},h('h2',{style:'margin:0 0 14px'},isIn?'Log in':'Create account'),
+      h('div',{class:'fld'},h('span',{class:'i'},'\u2709\ufe0f'),h('input',{id:'em',type:'email',autocomplete:'email',placeholder:'Email address',value:draft.em||'',oninput:inc('em')})),
+      h('div',{class:'fld'},h('span',{class:'i'},'\ud83d\udd12'),h('input',{id:'pw',type:showPw?'text':'password',autocomplete:isIn?'current-password':'new-password',placeholder:'Password (min 6 characters)',value:draft.pw||'',oninput:inc('pw'),onkeydown:e=>{if(e.key==='Enter')go()}}),
+        h('button',{class:'eye',type:'button',onclick:()=>{showPw=!showPw;render()}},showPw?'\ud83d\ude48':'\ud83d\udc41\ufe0f')),
+      err&&h('div',{class:'err'},err),note&&h('p',{style:'color:#0f9d58'},note),
+      isIn&&h('div',{style:'text-align:right;margin:-4px 0 12px'},h('a',{href:'#',style:'color:var(--pr);font-size:14px',onclick:e=>{e.preventDefault();mode='forgot';err='';note='';render()}},'Forgot password?')),h('button',{class:'btn full',onclick:go},isIn?'Log in':'Sign up'),h('div',{class:'divider'},'or'),
+      h('button',{class:'btn g full',onclick:()=>{mode=isIn?'up':'in';err='';note='';render()}},isIn?'Create new account':'I already have an account')),
+    h('p',{style:'font-size:13px;margin-top:18px;line-height:1.7'},'Made with \u2665 for friends',h('br'),'Owned by Selvin'));
+}
+function forgotView(){
+  const send=async()=>{err='';note='';const em=(draft.em||'').trim();if(!em){err='Enter your email address';return render()}
+    const{error}=await sb.auth.resetPasswordForEmail(em,{redirectTo:location.origin+location.pathname});
+    if(error)err=error.message;else note='If this email has an account, a reset link is on its way. Check your inbox and spam folder.';render()};
+  return h('div',{class:'hero'},h('div',{class:'big'},'STREKS'),h('p',{},'Forgot your password? No problem.'),
+    h('div',{class:'glass'},h('h2',{style:'margin:0 0 6px'},'Reset password'),h('p',{class:'mu',style:'margin:0 0 14px'},"Enter your email and we'll send you a link."),
+      h('div',{class:'fld'},h('span',{class:'i'},'\u2709\ufe0f'),h('input',{id:'em',type:'email',autocomplete:'email',placeholder:'Email address',value:draft.em||'',oninput:inc('em'),onkeydown:e=>{if(e.key==='Enter')send()}})),
+      err&&h('div',{class:'err'},err),note&&h('p',{style:'color:#0f9d58'},note),
+      h('button',{class:'btn full',onclick:send},'Send reset link'),h('div',{class:'divider'},'or'),
+      h('button',{class:'btn g full',onclick:()=>{mode='in';err='';note='';render()}},'Back to log in')));
+}
+function resetView(){
+  const save=async()=>{err='';const p=draft.np||'';if(p.length<6){err='Password must be at least 6 characters';return render()}
+    if(p!==draft.np2){err='Passwords do not match';return render()}
+    const{error}=await sb.auth.updateUser({password:p});
+    if(error)err=error.message;else{recovery=false;draft.np=draft.np2='';history.replaceState(null,'',location.pathname);alert('Password updated!')}
+    render()};
+  const fld=(id,ph)=>h('div',{class:'fld'},h('span',{class:'i'},'\ud83d\udd12'),h('input',{id,type:'password',autocomplete:'new-password',placeholder:ph,value:draft[id]||'',oninput:inc(id),onkeydown:e=>{if(e.key==='Enter')save()}}));
+  return h('div',{class:'hero'},h('div',{class:'big'},'STREKS'),h('p',{},'Choose a new password'),
+    h('div',{class:'glass'},h('h2',{style:'margin:0 0 14px'},'New password'),fld('np','New password (min 6 characters)'),fld('np2','Confirm new password'),
+      err&&h('div',{class:'err'},err),h('button',{class:'btn full',onclick:save},'Update password')));
+}
+function setupView(){
+  const pv={name:draft.sn||'?',color:draft.sc,pic_url:draft.pic&&draft.pic.url};
+  const w=h('div',{class:'card auth'},h('h2',{},'Set up your profile'),
+    h('div',{style:'text-align:center'},h('div',{style:'display:flex;justify-content:center'},av(pv,80)),h('div',{style:'height:8px'}),
+      h('button',{class:'btn g sm',onclick:()=>q('sp').click()},draft.pic?'Change photo':'Add profile photo'),
+      h('input',{id:'sp',type:'file',accept:'image/*',style:'display:none',onchange:pickFile('pic',400,true)})),
+    h('div',{style:'height:10px'}),h('input',{id:'su',placeholder:'username (a-z, 0-9, _)',value:draft.su||'',oninput:inc('su')}),h('div',{style:'height:8px'}),
+    h('input',{id:'sn',placeholder:'Your name',value:draft.sn||'',oninput:inc('sn')}),h('div',{style:'height:8px'}),
+    h('textarea',{id:'sbio',placeholder:'Short bio (optional)',oninput:inc('sbio')},draft.sbio||''),
+    h('div',{},...COLORS.map(c=>h('span',{class:'sw'+(draft.sc===c?' on':''),style:'background:'+c,onclick:()=>{draft.sc=c;render()}}))),
+    err&&h('div',{class:'err'},err),
+    h('button',{class:'btn',onclick:async()=>{
+      const un=(draft.su||'').trim().toLowerCase(),nm=(draft.sn||'').trim();err='';
+      if(!/^[a-z0-9_]{3,20}$/.test(un))err='Username must be 3-20 letters, numbers or _';else if(!nm)err='Please enter your name';
+      if(err)return render();
+      try{const pic=draft.pic?await upload(draft.pic.blob):null;
+        const{error}=await sb.from('profiles').insert({id:uid,username:un,name:nm,bio:(draft.sbio||'').trim(),color:draft.sc,pic_url:pic});
+        if(error)err=error.code==='23505'?'That username is taken':error.message;
+      }catch(e){err=e.message||'Upload failed'}
+      if(!err){draft={sc:COLORS[0]};await loadAll()}
+      render()}},'Create profile'),
+    h('p',{class:'mu'},h('a',{href:'#',style:'color:var(--pr)',onclick:e=>{e.preventDefault();sb.auth.signOut()}},'Log out')));
+  return w;
+}
+function feedView(){
+  const w=h('div');const ib=installBanner();if(ib)w.append(ib);w.append(storyBar());
+  w.append(h('div',{class:'card'},h('textarea',{id:'post',placeholder:"What's on your mind?",oninput:inc('post')},draft.post||''),h('div',{style:'height:8px'}),
+    draft.img&&h('div',{style:'position:relative;margin-bottom:8px'},(draft.img.video?h('video',{src:draft.img.url,class:'pimg',controls:'',playsinline:'',style:'margin:0'}):h('img',{src:draft.img.url,class:'pimg',style:'margin:0'})),h('button',{class:'btn g sm',style:'position:absolute;top:6px;right:6px',onclick:()=>{draft.img=null;render()}},'Remove')),
+    h('div',{class:'row'},h('button',{class:'btn g',onclick:()=>q('pi').click()},'\ud83d\udcf7 Photo'),
+      h('input',{id:'pi',type:'file',accept:'image/*,video/*',style:'display:none',onchange:pickFile('img',1600,false)}),
+      h('button',{class:'btn',onclick:async e=>{const t=(draft.post||'').trim();if(!t&&!draft.img)return;e.target.disabled=true;const done=toast('Uploading\u2026');
+        try{const mt=draft.img&&draft.img.video?'video':'image',url=draft.img?await upload(draft.img.blob):null;draft.post='';draft.img=null;await act(sb.from('posts').insert({text:t,img_url:url,media_type:mt}))}catch(x){alert(x.message);render()}finally{done()}}},'Post'))));
+  if(!posts.length)w.append(h('p',{class:'mu'},'No posts yet. Write one, or add friends to see theirs.'));
+  posts.forEach(p=>w.append(postCard(p)));
+  return w;
+}
+function notifView(){
+  const w=h('div',{},h('div',{class:'row',style:'justify-content:space-between'},h('h2',{},'Notifications'),notifs.some(n=>!n.read)&&h('button',{class:'btn g sm',onclick:()=>act(sb.from('notifications').update({read:true}).eq('read',false))},'Mark all read')));
+  if(!notifs.length)w.append(h('p',{class:'mu',style:'text-align:center;margin-top:40px'},'No notifications yet. Likes, comments and friend requests will show up here.'));
+  const T={like:'liked your post',comment:'commented on your post',request:'sent you a friend request',accepted:'accepted your friend request',story_like:'liked your story',story_comment:'commented on your story'};
+  notifs.forEach(n=>{const u=profs[n.actor_id]||{name:'Someone'};
+    w.append(h('div',{class:'row conv'+(n.read?'':' unread'),onclick:async()=>{if(!n.read)await sb.from('notifications').update({read:true}).eq('id',n.id);
+      if(n.type==='like'||n.type==='comment'){viewId=null;focus=posts.some(p=>p.id===n.ref_id)?n.ref_id:null;tab='me'}
+      else if(n.type==='request')tab='people';else if(n.type==='accepted'){viewId=n.actor_id;focus=null;tab='me'}else tab='feed';
+      await reload()}},av0(u,46),h('div',{class:'grow'},h('b',{},u.name),' '+(T[n.type]||'')),h('span',{class:'mu'},ago(n.created_at))));});
+  return w;
+}
+function relBtn(id){const r=relOf(id);
+  if(!r)return h('button',{class:'btn sm',onclick:()=>act(sb.from('friendships').insert({addressee:id}))},'Add friend');
+  if(r.status==='accepted')return h('button',{class:'btn g sm',onclick:()=>{viewId=id;focus=null;tab='me';render()}},'Friends \u2713');
+  if(r.requester===uid)return h('button',{class:'btn g sm',onclick:()=>act(sb.from('friendships').delete().eq('id',r.id))},'Requested');
+  return h('button',{class:'btn sm',onclick:()=>act(sb.from('friendships').update({status:'accepted'}).eq('id',r.id))},'Accept');
+}
+function exploreView(){
+  const w=h('div',{},h('h2',{},'Explore'),h('input',{id:'xq',placeholder:'Search people by name or @username',value:draft.xq||'',oninput:inc('xq')}),h('div',{style:'height:14px'}));
+  const s=(draft.xq||'').trim().toLowerCase().replace(/^@/,'');
+  const list=s?Object.values(profs).filter(u=>u.id!==uid&&(u.username.includes(s)||(u.name||'').toLowerCase().includes(s))&&(!u.is_private||u.username===s||relOf(u.id))).map(u=>({id:u.id,mutual:0})):suggest.filter(x=>profs[x.id]);
+  w.append(h('b',{style:'display:block;margin-bottom:8px'},s?'Results':'People you may know'));
+  if(!list.length)w.append(h('p',{class:'mu',style:'text-align:center;margin-top:30px'},s?'No one found.':'No suggestions right now. Invite your friends to join STREKS!'));
+  list.forEach(x=>{const u=profs[x.id];w.append(h('div',{class:'card row'},av(u,52),h('div',{class:'grow'},h('b',{},u.name),h('div',{class:'mu'},'@'+u.username),x.mutual>0&&h('div',{class:'mu'},x.mutual+' mutual friend'+(x.mutual>1?'s':''))),h('div',{class:'acts'},relBtn(x.id))))});
+  return w;
+}
+let deferred=null;
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferred=e;render()});
+window.addEventListener('appinstalled',()=>{deferred=null;render()});
+if('serviceWorker' in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('sw.js').catch(()=>{});
+const standalone=()=>matchMedia('(display-mode: standalone)').matches||navigator.standalone;
+const isIOS=()=>/iphone|ipad|ipod/i.test(navigator.userAgent);
+async function installApp(){if(deferred){deferred.prompt();await deferred.userChoice;deferred=null;render()}else if(isIOS())alert('On iPhone: tap the Share button in Safari, then choose "Add to Home Screen".');else alert('Open your browser menu and choose "Install app" or "Add to Home screen".')}
+function installBanner(){let d=false;try{d=localStorage.getItem('instx')==='1'}catch(e){}
+  if(standalone()||d||!(deferred||isIOS()))return null;
+  return h('div',{class:'card row'},h('div',{style:'font-size:28px'},'\ud83d\udcf2'),h('div',{class:'grow'},h('b',{},'Install STREKS'),h('div',{class:'mu'},'Add it to your home screen for a full-screen app.')),h('button',{class:'btn sm',onclick:installApp},'Install'),h('button',{class:'btn g sm',onclick:()=>{try{localStorage.setItem('instx','1')}catch(e){}render()}},'\u2715'))}
+function storyBar(){
+  const recent=stories.filter(x=>Date.now()-new Date(x.created_at)<864e5),mine=recent.some(x=>x.user_id===uid);
+  const ids=[...new Set(recent.map(x=>x.user_id))].filter(i=>i!==uid&&profs[i]);
+  const item=(u,ring,label,onclick,plus)=>h('div',{class:'sitem',onclick},h('div',{class:ring?'ring':'ring none',style:'position:relative'},av0(u,60),plus&&h('span',{class:'plus'},'+')),h('span',{class:'mu',style:'font-size:12px'},label));
+  return h('div',{class:'sbar'},item(me,mine,'Your story',()=>mine?openStories(uid):q('sf').click(),!mine),
+    mine&&h('div',{class:'sitem',onclick:()=>q('sf').click()},h('div',{class:'ring none addb'},'+'),h('span',{class:'mu',style:'font-size:12px'},'Add')),
+    ids.map(i=>item(profs[i],true,profs[i].name.split(' ')[0],()=>openStories(i))),
+    h('input',{id:'sf',type:'file',accept:'image/*,video/*',style:'display:none',onchange:async e=>{const f=e.target.files[0];if(!f)return;const v=f.type.startsWith('video/');if(v&&f.size>5e7)return alert('Video is too large (max 50 MB)');const done=toast('Uploading story\u2026');try{const url=await upload(v?f:await toBlob(f,1600,false,.9));await act(sb.from('stories').insert({img_url:url,media_type:v?'video':'image'}))}catch(x){alert('Could not add story: '+(x.message||x))}finally{done()}}}));
+}
+function openStories(id){
+  const list=stories.filter(x=>x.user_id===id&&Date.now()-new Date(x.created_at)<864e5);if(!list.length)return;
+  let i=0,vid=null;const u=profs[id]||{name:'?'},ov=h('div',{class:'sv'});document.body.append(ov);
+  const next=()=>{i++;show()},close=()=>{clearTimeout(stTimer);ov.remove()};
+  const pause=()=>{clearTimeout(stTimer);ov.classList.add('paused');if(vid)vid.pause()};
+  const resume=()=>{ov.classList.remove('paused');if(vid)vid.play();else stTimer=setTimeout(next,5000)};
+  function show(){clearTimeout(stTimer);if(i>=list.length)return close();if(i<0)i=0;const s=list[i],isV=s.media_type==='video';
+    const bars=list.map((_,k)=>h('i',{class:k<i?'done':k===i?(isV?'cur vid':'cur'):''})),panel=h('div',{class:'spanel'});
+    const media=isV?h('video',{src:s.img_url,autoplay:'',playsinline:''}):h('img',{src:s.img_url});
+    const drawPanel=()=>{const sl=storyLikes.filter(l=>l.story_id===s.id),sc=storyComments.filter(c=>c.story_id===s.id),liked=sl.some(l=>l.user_id===uid);
+      const send=async()=>{const el=q('sci'),t=el.value.trim();if(!t)return;el.value='';await sb.from('story_comments').insert({story_id:s.id,text:t});await loadAll();drawPanel();q('sci').focus()};
+      panel.replaceChildren(
+        sc.length>0&&h('div',{class:'scs'},sc.map(c=>h('div',{},h('b',{},((profs[c.user_id]||{}).name||'?')+' '),c.text,c.user_id===uid&&h('span',{class:'x',onclick:async()=>{await sb.from('story_comments').delete().eq('id',c.id);await loadAll();drawPanel()}},' \u2715')))),
+        id===uid&&sl.length>0&&h('div',{class:'scs'},'\u2665 '+sl.map(l=>(profs[l.user_id]||{}).name||'?').join(', ')),
+        h('div',{class:'row sin'},h('input',{id:'sci',placeholder:'Add a comment\u2026',onfocus:pause,onblur:resume,onkeydown:e=>{if(e.key==='Enter')send()}}),h('button',{class:'btn sm',onclick:send},'Send'),
+          h('button',{class:'btn g sm',onclick:async()=>{await(liked?sb.from('story_likes').delete().eq('story_id',s.id).eq('user_id',uid):sb.from('story_likes').insert({story_id:s.id,user_id:uid}));await loadAll();drawPanel()}},(liked?'\u2665 ':'\u2661 ')+sl.length)))};
+    ov.replaceChildren(h('div',{class:'bars'},bars),
+      h('div',{class:'row svh'},av0(u,36),h('b',{},u.name),h('span',{style:'color:#ccc;font-size:13px'},ago(s.created_at)),h('span',{class:'grow'}),
+        id===uid&&h('button',{class:'btn g sm',onclick:async()=>{if(!confirm('Delete this story?'))return;await sb.from('stories').delete().eq('id',s.id);close();reload()}},'Delete'),
+        h('button',{class:'btn g sm',onclick:close},'\u2715')),
+      media,h('div',{class:'zl',onclick:()=>{i--;show()}}),h('div',{class:'zr',onclick:next}),panel);
+    drawPanel();
+    if(isV){vid=media;vid.onended=next;vid.ontimeupdate=()=>bars[i].style.setProperty('--p',vid.currentTime/(vid.duration||1));vid.play().catch(()=>{vid.muted=true;vid.play()})}
+    else{vid=null;stTimer=setTimeout(next,5000)}}
+  show();
+}
+async function sharePost(p){const url=location.href.split('#')[0]+'#post-'+p.id,text=(p.text||'A post on STREKS').slice(0,100);
+  try{if(navigator.share){await navigator.share({title:'STREKS',text,url});return}await navigator.clipboard.writeText(url);const d=toast('Link copied');setTimeout(d,1800)}catch(e){if(e.name!=='AbortError')prompt('Copy this link',url)}}
+function openHash(){const m=location.hash.match(/^#post-(\d+)$/);if(!m)return;const p=posts.find(x=>x.id==m[1]);history.replaceState(null,'',location.pathname+location.search);
+  if(!p){alert("This post isn't available. It may be deleted, or you may not be friends with the author.");return}viewId=p.user_id===uid?null:p.user_id;focus=p.id;tab='me'}
+function postCard(p){const u=profs[p.user_id]||{name:'Unknown',username:'?'};const lk=p.likes.some(l=>l.user_id===uid),sv=savedIds.has(p.id);
+    return (h('div',{class:'card post'},h('div',{class:'row'},av(u),h('div',{class:'grow'},h('b',{'data-u':u.id||'',style:'cursor:pointer'},u.name),h('div',{class:'mu'},'@'+u.username+' \u00b7 '+when(p.created_at)+(p.edited_at?' \u00b7 edited':''))),
+      p.user_id===uid&&h('div',{class:'acts'},h('button',{class:'btn g sm',onclick:()=>{editPost=p.id;draft.ep=p.text||'';render()}},'Edit'),h('button',{class:'btn g sm',onclick:()=>confirm('Delete this post?')&&act(sb.from('posts').delete().eq('id',p.id))},'Delete'))),
+      editPost===p.id?h('div',{},h('textarea',{id:'ep',oninput:inc('ep')},draft.ep||''),h('div',{class:'row',style:'margin-top:8px'},h('button',{class:'btn sm',onclick:async()=>{const t=(draft.ep||'').trim();if(!t&&!p.img_url)return;editPost=null;await act(sb.from('posts').update({text:t,edited_at:new Date().toISOString()}).eq('id',p.id))}},'Save'),h('button',{class:'btn g sm',onclick:()=>{editPost=null;render()}},'Cancel'))):p.text&&h('p',{style:'white-space:pre-wrap'},p.text),p.img_url&&(p.media_type==='video'?h('video',{src:p.img_url,class:'pimg',controls:'',playsinline:'',preload:'metadata'}):h('img',{src:p.img_url,class:'pimg'})),
+      h('div',{class:'row'},h('button',{class:'btn g sm',onclick:()=>act(lk?sb.from('likes').delete().eq('post_id',p.id).eq('user_id',uid):sb.from('likes').insert({post_id:p.id,user_id:uid}))},(lk?'\u2665 ':'\u2661 ')+p.likes.length),
+        h('button',{class:'btn g sm',onclick:()=>{openC=openC===p.id?null:p.id;render()}},'\ud83d\udcac '+p.comments.length),h('span',{class:'grow'}),h('button',{class:'btn g sm',title:'Share',onclick:()=>sharePost(p)},'\ud83d\udce4'),h('button',{class:'btn g sm',title:sv?'Unsave':'Save',onclick:()=>act(sv?sb.from('saved_posts').delete().eq('post_id',p.id).eq('user_id',uid):sb.from('saved_posts').insert({post_id:p.id}))},sv?'\ud83d\udd16':'\ud83d\udcd1')),
+      openC===p.id&&h('div',{style:'margin-top:10px'},...p.comments.sort((a,b)=>a.created_at<b.created_at?-1:1).map(c=>{const cu=profs[c.user_id]||{name:'Unknown'};return h('div',{class:'row',style:'margin-bottom:6px;align-items:flex-start'},av(cu,28),h('div',{class:'m grow',style:'max-width:none'},h('b',{'data-u':c.user_id||'',style:'cursor:pointer'},cu.name+' '),c.text),c.user_id===uid&&h('button',{class:'btn g sm',style:'min-height:30px;padding:2px 10px',title:'Delete comment',onclick:()=>act(sb.from('comments').delete().eq('id',c.id))},'\u2715'))}),
+        h('div',{class:'row'},h('input',{id:'cm',placeholder:'Write a comment',value:draft.cm||'',oninput:inc('cm'),onkeydown:e=>{if(e.key==='Enter')addC(p)}}),h('button',{class:'btn sm',onclick:()=>addC(p)},'Send')))));
+}
+async function addC(p){const t=(draft.cm||'').trim();if(!t)return;draft.cm='';await act(sb.from('comments').insert({post_id:p.id,text:t}))}
+function peopleView(){
+  const w=h('div');const inn=incoming();
+  if(inn.length){const c=h('div',{class:'card'},h('b',{},'Friend requests'));
+    inn.forEach(r=>{const u=profs[r.requester];if(!u)return;c.append(h('div',{class:'row',style:'margin-top:8px'},av(u),h('div',{class:'grow'},u.name,h('div',{class:'mu'},'@'+u.username)),
+      h('button',{class:'btn sm',onclick:()=>act(sb.from('friendships').update({status:'accepted'}).eq('id',r.id))},'Accept'),
+      h('button',{class:'btn g sm',onclick:()=>act(sb.from('friendships').delete().eq('id',r.id))},'Decline')))});w.append(c)}
+  w.append(h('input',{id:'q',placeholder:'Search people by name or @username',value:draft.q||'',oninput:inc('q')}),h('div',{style:'height:10px'}));
+  const s=(draft.q||'').trim().toLowerCase().replace(/^@/,'');
+  const list=Object.values(profs).filter(u=>u.id!==uid&&(!s||u.username.includes(s)||(u.name||'').toLowerCase().includes(s))&&(!u.is_private||relOf(u.id)||(s&&u.username===s)));
+  if(!list.length)w.append(h('p',{class:'mu'},'No one found yet. Invite friends to sign up!'));
+  list.forEach(u=>{const r=relOf(u.id);let a;
+    if(!r)a=h('button',{class:'btn sm',onclick:()=>act(sb.from('friendships').insert({addressee:u.id}))},'Add friend');
+    else if(r.status==='accepted')a=[h('button',{class:'btn sm',onclick:async()=>{tab='chat';chatWith=u.id;await loadMsgs();render()}},'Message'),h('button',{class:'btn g sm',onclick:()=>confirm('Remove friend?')&&act(sb.from('friendships').delete().eq('id',r.id))},'Unfriend')];
+    else if(r.requester===uid)a=h('button',{class:'btn g sm',onclick:()=>act(sb.from('friendships').delete().eq('id',r.id))},'Cancel request');
+    else a=h('button',{class:'btn sm',onclick:()=>act(sb.from('friendships').update({status:'accepted'}).eq('id',r.id))},'Accept');
+    w.append(h('div',{class:'card row'},av(u),h('div',{class:'grow'},h('b',{},u.name),h('div',{class:'mu'},'@'+u.username+(u.bio?' \u00b7 '+u.bio:''))),h('div',{class:'acts'},a)))});
+  return w;
+}
+const EMO=['\u2764\ufe0f','\ud83d\ude02','\ud83d\ude2e','\ud83d\ude22','\ud83d\udc4d','\ud83d\udd25'];
+const rcs=m=>{const rs=reacts.filter(r=>r.message_id===m.id);if(!rs.length)return null;const g={};rs.forEach(r=>(g[r.emoji]=g[r.emoji]||[]).push(r));
+  return h('div',{class:'chips'},Object.entries(g).map(([e,l])=>h('span',{class:'chip'+(l.some(r=>r.user_id===uid)?' mine':''),onclick:ev=>{ev.stopPropagation();react(m,e)}},e+(l.length>1?' '+l.length:''))))};
+async function react(m,e){pickId=null;const mine=reacts.find(r=>r.message_id===m.id&&r.user_id===uid);
+  if(mine&&mine.emoji===e)await sb.from('message_reactions').delete().eq('message_id',m.id).eq('user_id',uid);
+  else await sb.from('message_reactions').upsert({message_id:m.id,user_id:uid,emoji:e},{onConflict:'message_id,user_id'});
+  await loadMsgs();render()}
+function chatView(){
+  const w=h('div');
+  if(!chatWith){const fl=friends();
+    if(!fl.length)return h('p',{class:'mu',style:'text-align:center;margin-top:40px'},'Add friends first, then you can chat with them here.');
+    const last=id=>allMsgs.find(m=>m.sender===id||m.receiver===id);
+    fl.sort((x,y)=>((last(y)||{}).created_at||'')>((last(x)||{}).created_at||'')?1:-1);
+    w.append(h('h2',{},'Messages'));
+    fl.forEach(id=>{const u=profs[id],m=last(id),n=allMsgs.filter(x=>x.sender===id&&x.receiver===uid&&!x.read_at).length;w.append(h('div',{class:'row conv',onclick:async()=>{chatWith=id;await loadMsgs();render()}},av0(u,52),h('div',{class:'grow'},h('b',{},u.name),h('div',{class:n?'':'mu',style:'white-space:nowrap;overflow:hidden;text-overflow:ellipsis'+(n?';font-weight:700':'')},m?(m.sender===uid?'You: ':'')+m.text:'Say hi \ud83d\udc4b')),h('div',{style:'text-align:right'},m&&h('div',{class:'mu'},ago(m.created_at)),n>0&&h('span',{class:'cnt'},n>9?'9+':n))))});
+    return w}
+  const u=profs[chatWith]||{name:'Unknown'},lastMine=msgs.map(x=>x.sender).lastIndexOf(uid);
+  const send=async()=>{const t=(draft.chat||'').trim();if(!t)return;draft.chat='';render();await act(sb.from('messages').insert({receiver:chatWith,text:t}))};
+  w.append(h('div',{class:'row chead'},h('button',{class:'btn g sm',onclick:()=>{chatWith=null;msgs=[];render()}},'\u2190 Back'),av(u,32),h('b',{},u.name)),
+    h('div',{class:'card msgs'},msgs.length?msgs.map((m,k)=>[h('div',{class:'mw'+(m.sender===uid?' me':'')},pickId===m.id&&h('div',{class:'picker'},EMO.map(e=>h('button',{onclick:ev=>{ev.stopPropagation();react(m,e)}},e))),h('div',{class:'m'+(m.sender===uid?' me':''),title:when(m.created_at),onclick:()=>{pickId=pickId===m.id?null:m.id;render()}},m.text),rcs(m)),k===lastMine&&m.read_at&&h('div',{class:'mu seen'},'Seen')]):h('span',{class:'mu'},'Say hi \ud83d\udc4b')),
+    h('div',{class:'row cbar'},h('input',{id:'chat',placeholder:'Type a message',value:draft.chat||'',oninput:inc('chat'),onkeydown:e=>{if(e.key==='Enter')send()}}),h('button',{class:'btn',onclick:send},'Send')));
+  return w;
+}
+let viewId=null,focus=null;
+function settingsCard(){
+  return h('div',{class:'card'},h('h2',{style:'margin-top:0'},'Settings'),
+    h('div',{class:'row'},h('div',{class:'grow'},h('b',{},'Private account'),h('div',{class:'mu'},'Hide me from Explore, suggestions and search. Friends still see everything.')),
+      h('button',{class:'btn sm'+(me.is_private?'':' g'),onclick:()=>act(sb.from('profiles').update({is_private:!me.is_private}).eq('id',uid))},me.is_private?'On':'Off')),
+    h('div',{class:'row',style:'margin-top:14px'},h('div',{class:'grow'},h('b',{},'Install app'),h('div',{class:'mu'},'Add STREKS to your home screen.')),h('button',{class:'btn sm',onclick:installApp},standalone()?'Installed \u2713':'Install')),
+    h('hr',{style:'border:0;border-top:1px solid var(--bd);margin:14px 0'}),
+    h('b',{},'Delete account'),h('div',{class:'mu',style:'margin:2px 0 10px'},'Permanently removes your profile, posts, stories, comments, messages and friendships. This cannot be undone.'),
+    h('button',{class:'btn sm',style:'background:#d93025',onclick:async()=>{if(!confirm('Delete your account permanently?'))return;if(prompt('Type DELETE to confirm')!=='DELETE')return;const{error}=await sb.rpc('delete_my_account');if(error)return alert(error.message);showSet=false;await sb.auth.signOut();alert('Your account was deleted.')}},'Delete my account'));
+}
+function profileView(){
+  const id=viewId||uid,u=profs[id]||me,mine=id===uid,w=h('div'),ps=posts.filter(p=>p.user_id===id);
+  const stat=(n,l)=>h('div',{style:'text-align:center'},h('b',{style:'font-size:18px;display:block'},n),h('span',{class:'mu'},l));
+  const c=h('div',{class:'card'},!mine&&h('button',{class:'btn g sm',style:'margin-bottom:10px',onclick:()=>{viewId=null;tab='feed';render()}},'\u2190 Back'),
+    h('div',{class:'row',style:'gap:18px'},h('div',{class:'ring'},av(u,84)),h('div',{class:'row grow',style:'justify-content:space-around'},stat(ps.length,'posts'),mine&&stat(friends().length,'friends'))),
+    h('h2',{style:'margin:12px 0 0'},u.name),h('div',{class:'mu'},'@'+u.username+(u.is_private?' \ud83d\udd12':'')),h('p',{style:'margin:8px 0 12px'},u.bio||(mine?'No bio yet':'')));
+  if(mine){
+    c.append(h('div',{class:'row',style:'gap:8px;flex-wrap:wrap'},h('button',{class:'btn g sm',onclick:()=>{editing=!editing;render()}},editing?'Cancel':'Edit profile'),h('button',{class:'btn g sm',onclick:()=>q('pf').click()},'Change photo'),h('button',{class:'btn g sm',onclick:()=>{showSet=!showSet;render()}},'\u2699\ufe0f Settings'),
+      h('input',{id:'pf',type:'file',accept:'image/*',style:'display:none',onchange:async e=>{const f=e.target.files[0];if(f)try{const url=await upload(await toBlob(f,400,true,.9));await act(sb.from('profiles').update({pic_url:url}).eq('id',uid))}catch(x){alert('Could not use that image')}}})));
+    if(editing){const e={n:u.name,b:u.bio||''};c.append(h('div',{style:'height:10px'}),h('input',{value:e.n,oninput:x=>e.n=x.target.value}),h('div',{style:'height:8px'}),h('textarea',{oninput:x=>e.b=x.target.value},e.b),h('div',{style:'height:8px'}),
+      h('button',{class:'btn',onclick:async()=>{if(!e.n.trim())return;editing=false;await act(sb.from('profiles').update({name:e.n.trim(),bio:e.b.trim()}).eq('id',uid))}},'Save'))}
+  }else{const r=relOf(id);
+    c.append(!r?h('button',{class:'btn',onclick:()=>act(sb.from('friendships').insert({addressee:id}))},'Add friend'):r.status==='accepted'?h('button',{class:'btn',onclick:async()=>{viewId=null;tab='chat';chatWith=id;await loadMsgs();render()}},'Message'):r.requester===uid?h('button',{class:'btn g',onclick:()=>act(sb.from('friendships').delete().eq('id',r.id))},'Cancel request'):h('button',{class:'btn',onclick:()=>act(sb.from('friendships').update({status:'accepted'}).eq('id',r.id))},'Accept request'))}
+  w.append(c);
+  if(mine&&showSet)w.append(settingsCard());
+  if(mine&&!focus){w.append(h('div',{class:'seg'},h('button',{class:ptab==='posts'?'on':'',onclick:()=>{ptab='posts';render()}},'\u25a6 Posts'),h('button',{class:ptab==='saved'?'on':'',onclick:()=>{ptab='saved';render()}},'\ud83d\udd16 Saved')));if(ptab==='saved'){if(!savedList.length)w.append(h('p',{class:'mu',style:'text-align:center'},'Nothing saved yet. Tap \ud83d\udcd1 on a post to save it.'));savedList.forEach(p=>w.append(postCard(p)));return w}}
+  if(focus){const fp=ps.find(p=>p.id===focus);if(fp){w.append(h('button',{class:'btn g sm',style:'margin-bottom:8px',onclick:()=>{focus=null;render()}},'\u2190 All posts'),postCard(fp));return w}}
+  if(ps.length)w.append(h('div',{class:'grid'},ps.map(p=>p.img_url?(p.media_type==='video'?h('video',{src:p.img_url+'#t=0.1',muted:'',playsinline:'',preload:'metadata',onclick:()=>{focus=p.id;render()}}):h('img',{src:p.img_url,loading:'lazy',onclick:()=>{focus=p.id;render()}})):h('div',{class:'tile',onclick:()=>{focus=p.id;render()}},p.text))));
+  if(!ps.length)w.append(h('p',{class:'mu',style:'text-align:center'},mine?'Your photos will appear here.':'Become friends to see their posts.'));
+  return w;
+}
+q('root').addEventListener('click',e=>{const el=e.target.closest('[data-u]');if(!el||!el.dataset.u)return;viewId=el.dataset.u===uid?null:el.dataset.u;focus=null;tab='me';chatWith=null;render()});
+sb.auth.onAuthStateChange((ev,s)=>{if(ev==='PASSWORD_RECOVERY')recovery=true;setTimeout(()=>onSess(s),0)});
+sb.auth.getSession().then(({data})=>{if(!data.session)render()});
+</script></body></html>
